@@ -11,9 +11,9 @@ let emailService = require('./emailService');
 (function() {
 
   // var newTransaction = new BankAccount({
-  //   cashBalance: [],
-  //   totalMiota: [],
-  //   priceBought: 0,
+  //   cashBalance: [0],
+  //   totalMiota: [282],
+  //   priceBought: 1.77,
   //   priceSold: 0,
   //   worth: 499.14,
   //   created: new Date()
