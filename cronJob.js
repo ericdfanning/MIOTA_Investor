@@ -26,17 +26,14 @@ const emailService = require('./emailService');
     
     let priceBought = 0
     let priceSold = 0
-    let cashAvailable = false;
+    let cashAvailable = false
+    let recordHighPrice = 0
 
     BankAccount.findOne({}, (err, result) => {
       if (err) {
         console.log(`FIRST FETCH ERROR: there was an error retrieving previous elements in MongoDB.`)
       } else {
         console.log('no error. FIRST FETCH INFO', result)
-        // result.cashBalance.push(0)
-        // result.totalMiota.push(282)
-        // result.priceBought = 1.77
-        // result.priceSold = 0
         priceBought = result.priceBought
         priceSold = result.priceSold
 
@@ -48,7 +45,7 @@ const emailService = require('./emailService');
           .then((res) => {
             let currentPrice = Number(res.data.USD)
             let sendIt = false
-            console.log('bought at ', priceBought, 'last price is ', lastPrice, 'current is', currentPrice, 'difference is ', currentPrice - lastPrice)
+            console.log('bought at ', priceBought, '- current is', currentPrice, 'record high price', recordHighPrice)
             if ((currentPrice - 0.20) >= priceBought && !cashAvailable) {
               // then sell half of the miota
               console.log('SELLING HALF OF MIOTA')
@@ -85,7 +82,7 @@ const emailService = require('./emailService');
                   });
                 }
               })
-            } else if (currentPrice <= lastPrice - 0.20 && cashAvailable) { /* dropped by certain amount, buy some if I have cash available*/
+            } else if ((currentPrice <= lastPrice - 0.20 && cashAvailable) || (currentPrice <= recordHighPrice - 0.20 && cashAvailable))  { /* dropped by certain amount, buy some if I have cash available*/
               console.log('BUYING MIOTA')
               BankAccount.findOne({}, (err, result) => {
                 if (err) {
