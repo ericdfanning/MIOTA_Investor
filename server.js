@@ -12,7 +12,6 @@ app.listen(app.get('port'), function() {
   console.log('Listening on port: ', port)
 });
 
-
 app.use(bodyParser.json()); // allows you to retrieve data from the body of requests made to this server
 app.use(cors()); // sets up the headers to allow cross origin requests
 
