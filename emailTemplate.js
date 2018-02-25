@@ -1,4 +1,4 @@
-module.exports = (curPrice, prevPrice) => {
+module.exports = (worth, totalMiota) => {
 	return `
       <!DOCTYPE html>
         <html lang="en">
@@ -48,12 +48,13 @@ module.exports = (curPrice, prevPrice) => {
           </head>
           <body>
             <div class="email">
-               <h2> IOTA has changed by a whole dollar </h2>
+               <h2> Your weekly earnings report </h2>
               <div id="stats">
-                <h2>Current IOTA price: </h2>
-                <h3>${curPrice}</h3><br/><br/>
-                <h2>IOTA price changed from: </h2>
-                <h3>${prevPrice}</h3>
+                <h1>From your initial $500 investment you have...</h1><br/>
+                <h2>Current MIOTA worth: </h2>
+                <h3>$${worth}</h3><br/><br/>
+                <h2>Total MIOTA owned: </h2>
+                <h3>${totalMiota}</h3>
               </div>
             </div>
           </body>

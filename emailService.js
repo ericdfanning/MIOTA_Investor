@@ -11,16 +11,16 @@ let transport = mailer.createTransport({
 
 let mailOptions = {
   from: serviceEmailAddress,
-  subject: 'IOTA PRICE HAS CHANGED BY A DOLLAR',
+  subject: 'Mock IOTA Earnings Report',
 };
 
-exports.sendEmail = (pricesObj) => {
+exports.sendEmail = (balanceObj) => {
 
   let options = {
     from: mailOptions.from,
     subject: mailOptions.subject,
     to: ['ENTER_EMAIL_YOU_WANT_TO_SEND_IT_TO_HERE'],
-    html: template(pricesObj.curPrice, pricesObj.prevPrice),
+    html: template(balanceObj.worth, balanceObj.totalMiota),
   }
 
   transport.sendMail(options, (err, info) => {
