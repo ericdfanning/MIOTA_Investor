@@ -23,27 +23,26 @@ const emailService = require('./emailService');
   // });
   const scan = () => {
     
-  let priceBought = 0
-  let priceSold = 0
-  let cashAvailable = false;
+    let priceBought = 0
+    let priceSold = 0
+    let cashAvailable = false;
 
-  BankAccount.findOne({}, (err, result) => {
-    if (err) {
-      console.log(`FIRST FETCH ERROR: there was an error retrieving previous elements in MongoDB.`)
-    } else {
-      console.log('no error. FIRST FETCH INFO', result)
-      // result.cashBalance.push(0)
-      // result.totalMiota.push(282)
-      // result.priceBought = 1.77
-      // result.priceSold = 0
-      priceBought = result.priceBought
-      priceSold = result.priceSold
+    BankAccount.findOne({}, (err, result) => {
+      if (err) {
+        console.log(`FIRST FETCH ERROR: there was an error retrieving previous elements in MongoDB.`)
+      } else {
+        console.log('no error. FIRST FETCH INFO', result)
+        // result.cashBalance.push(0)
+        // result.totalMiota.push(282)
+        // result.priceBought = 1.77
+        // result.priceSold = 0
+        priceBought = result.priceBought
+        priceSold = result.priceSold
 
-      let lastPrice = 0
-      let pricesObj = {curPrice: 0, prevPrice: 0}
-      cashAvailable = result.cashBalance[result.cashBalance.length - 1] !== 0
-        // https://api.binance.com/api/v1/ticker/price?symbol=IOTAETH
-        // https://min-api.cryptocompare.com/data/price?fsym=IOT&tsyms=USD
+        let lastPrice = 0
+        let pricesObj = {curPrice: 0, prevPrice: 0}
+        cashAvailable = result.cashBalance[result.cashBalance.length - 1] !== 0
+
         axios.get('https://min-api.cryptocompare.com/data/price?fsym=IOT&tsyms=USD')
           .then((res) => {
             let currentPrice = Number(res.data.USD)
@@ -71,13 +70,10 @@ const emailService = require('./emailService');
 
                   let currentMiotaWorth = sellingWorth + realizedCashedOutWorth
                   result.worth = currentMiotaWorth
+                  result.priceSold = currentPrice
 
-                  // reset environment variables
                   cashAvailable = true
                   lastPrice = currentPrice
-                  // result.priceBought = 1.77
-                  // result.priceSold = 0
-                  result.priceSold = currentPrice
 
                   result.save(function(err, data) {
                     if (err) {
@@ -110,13 +106,11 @@ const emailService = require('./emailService');
                   let currentTotalMiotaWorth = currentTotalMiota * currentPrice
                   let newWorth = currentTotalMiotaWorth + buyingWorth
                   result.worth = newWorth
+                  result.priceBought = currentPrice
 
                   // reset environment variables
                   cashAvailable = false
                   lastPrice = currentPrice
-                  // result.priceBought = 1.77
-                  // result.priceSold = 0
-                  result.priceBought = currentPrice
 
                   result.save(function(err, data) {
                     if (err) {
@@ -151,17 +145,15 @@ const emailService = require('./emailService');
               })
             }
           })
-      // result.save(function(err, data) {
-      //   if (err) {
-      //     console.log('Major creation fail');
-      //   } else {
-      //     console.log('********* FINISHED SAVING *********')
-      //   }
-      // });
-    }
-  })
-
-
+        // result.save(function(err, data) {
+        //   if (err) {
+        //     console.log('Major creation fail');
+        //   } else {
+        //     console.log('********* FINISHED SAVING *********')
+        //   }
+        // });
+      }
+    })
   }
 
   let job = new CronJob({
