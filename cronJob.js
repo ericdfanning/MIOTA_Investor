@@ -1,12 +1,7 @@
 const CronJob = require('cron').CronJob;
 const axios = require('axios');
-const express = require('express');
-const app = express();
 const BankAccount = require('./schema');
-
-let emailService = require('./emailService');
-
-
+const emailService = require('./emailService');
 
 (function() {
 
@@ -155,24 +150,6 @@ let emailService = require('./emailService');
                 }
               })
             }
-            // if (lastPrice < price) {
-            //   if (price - lastPrice > 1) {
-            //     sendIt = true
-            //     pricesObj = {curPrice: price, prevPrice: lastPrice}
-            //   }
-            // } else if (lastPrice > price) {
-            //   if (lastPrice - price > 1) {
-            //     sendIt = true
-            //     pricesObj = {curPrice: price, prevPrice: lastPrice}
-            //   }
-            // }
-
-            // if (sendIt) {
-            //   console.log('sending email', pricesObj)
-            //   emailService.sendEmail(pricesObj)
-            //   sendIt = false
-            //   lastPrice = price
-            // }
           })
       // result.save(function(err, data) {
       //   if (err) {

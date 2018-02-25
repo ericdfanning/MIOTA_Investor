@@ -3,7 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
-const cronScan = require('./cronJob.js')
+const cronScan = require('./cronJob')
+const emailCron = require('./emailCron')
 
 const port = 9886
 app.set('port', port);

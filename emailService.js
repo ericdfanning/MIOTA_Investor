@@ -19,7 +19,7 @@ exports.sendEmail = (pricesObj) => {
   let options = {
     from: mailOptions.from,
     subject: mailOptions.subject,
-    to: [''],
+    to: ['ENTER_EMAIL_YOU_WANT_TO_SEND_IT_TO_HERE'],
     html: template(pricesObj.curPrice, pricesObj.prevPrice),
   }
 
