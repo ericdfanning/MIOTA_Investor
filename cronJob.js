@@ -21,6 +21,7 @@ const emailService = require('./emailService');
   //     console.log('********* FINISHED SAVING *********')
   //   }
   // });
+  
   const scan = () => {
     
     let priceBought = 0

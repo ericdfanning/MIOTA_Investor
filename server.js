@@ -6,7 +6,7 @@ const cors = require('cors');
 const cronScan = require('./cronJob')
 const emailCron = require('./emailCron')
 
-const port = 9886
+const port = 8000
 app.set('port', port);
 app.listen(app.get('port'), function() {
   console.log('Listening on port: ', port)
