@@ -103,7 +103,7 @@ const emailService = require('./emailService');
                   let buyingWorth = costOfNewMiotaPurchase - binanceProfit
                   let currentTotalMiotaWorth = currentTotalMiota * currentPrice
                   let newWorth = currentTotalMiotaWorth + buyingWorth
-                  result.worth = newWorth
+                  result.worth = Number(newWorth.toFixed(2))
                   result.priceBought = currentPrice
 
                   // reset environment variables
