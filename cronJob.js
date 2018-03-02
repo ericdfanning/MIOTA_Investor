@@ -130,7 +130,7 @@ const emailService = require('./emailService');
                   let currentTotalMiotaWorth = Number((currentTotalMiota * currentPrice).toFixed(2))
                   let cashBalance = result.cashBalance[result.cashBalance.length - 1]
                   let newWorth = currentTotalMiotaWorth + cashBalance
-                  result.worth = newWorth
+                  result.worth = Number(newWorth.toFixed(2))
 
                   result.save(function(err, data) {
                     if (err) {
